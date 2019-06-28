@@ -15,14 +15,16 @@ class patch{
     private:
         vector<node* > sample;
         unsigned int nb_sample;
-        float effective_size;
-        float current_time;
+        double effective_size;
+        double current_time;
         unsigned int next_individual_id;
         void coalesce_two_node();
     public:
         patch(vector<node* > sample);
         vector<node* > get_sample() const;
         void coalesce_all_node();
+        bool coalesce_until(double time);
+        inline void set_effective_size(double Effective_size){effective_size = Effective_size;}
 };
 
 

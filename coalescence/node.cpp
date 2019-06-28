@@ -30,10 +30,6 @@ double node::get_time() const{
 }
 
 
-void node::set_lifetime(double Lifetime){
-    lifetime = Lifetime;
-}
-
 
 int node::get_id() const{
     return(id);

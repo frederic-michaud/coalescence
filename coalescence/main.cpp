@@ -11,6 +11,7 @@
 #include "patch.hpp"
 #include "event.hpp"
 #include "simulation.hpp"
+#include "tree.hpp"
 using namespace std;
 
 ostream& operator<<(ostream& out, const node& my_node){
@@ -36,6 +37,8 @@ int main(int argc, const char * argv[]) {
     my_patch2.coalesce_until(2);
     my_patch1.merge_patch(&my_patch2, 2);
     my_patch1.coalesce_all_sample();
+    tree my_tree(my_patch1.get_last_node());
+    my_tree.add_mutation();
     cout << my_patch1;
     return 0;
 }

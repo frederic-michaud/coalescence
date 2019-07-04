@@ -12,6 +12,7 @@
 		C83DF4BB22CDE00800757727 /* simulation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C83DF4B622CDE00800757727 /* simulation.cpp */; };
 		C83DF4BC22CDE00800757727 /* node.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C83DF4B722CDE00800757727 /* node.cpp */; };
 		C83DF4BD22CDE00800757727 /* event.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C83DF4B922CDE00800757727 /* event.cpp */; };
+		C83DF4C022CE24A000757727 /* tree.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C83DF4BE22CE24A000757727 /* tree.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -37,6 +38,8 @@
 		C83DF4B722CDE00800757727 /* node.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = node.cpp; sourceTree = "<group>"; };
 		C83DF4B822CDE00800757727 /* event.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = event.hpp; sourceTree = "<group>"; };
 		C83DF4B922CDE00800757727 /* event.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = event.cpp; sourceTree = "<group>"; };
+		C83DF4BE22CE24A000757727 /* tree.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = tree.cpp; sourceTree = "<group>"; };
+		C83DF4BF22CE24A000757727 /* tree.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = tree.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,6 +81,8 @@
 				C83DF4B622CDE00800757727 /* simulation.cpp */,
 				C83DF4B422CDE00800757727 /* simulation.hpp */,
 				C685DFAF22C5F8C90057EE1B /* main.cpp */,
+				C83DF4BE22CE24A000757727 /* tree.cpp */,
+				C83DF4BF22CE24A000757727 /* tree.hpp */,
 			);
 			path = coalescence;
 			sourceTree = "<group>";
@@ -143,6 +148,7 @@
 				C83DF4BB22CDE00800757727 /* simulation.cpp in Sources */,
 				C83DF4BC22CDE00800757727 /* node.cpp in Sources */,
 				C83DF4BD22CDE00800757727 /* event.cpp in Sources */,
+				C83DF4C022CE24A000757727 /* tree.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

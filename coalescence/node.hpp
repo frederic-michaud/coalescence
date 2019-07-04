@@ -17,16 +17,18 @@ class node;
 class node{
 private:
     double time;
-    double T_total_under;
+    double total_time_under;
     int id;
     vector<node* > childrens;
 public:
     node(int id);
     node(int id, double time,node*, node*);
     double get_time() const;
+    inline double get_total_time_under(){return total_time_under;}
     int get_id() const;
     friend std::ostream& operator<< (std::ostream &out, const node &node);
     void shift_id(unsigned int shift);
+    node* get_time_position(double time);
 };
 
 

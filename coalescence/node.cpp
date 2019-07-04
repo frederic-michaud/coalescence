@@ -35,3 +35,9 @@ int node::get_id() const{
 }
 
 
+void node::shift_id(unsigned int shift){
+    id+=shift;
+    for (node* children : childrens){
+        children->shift_id(shift);
+    }
+}

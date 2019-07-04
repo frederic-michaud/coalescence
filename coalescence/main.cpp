@@ -23,23 +23,19 @@ ostream& operator<<(ostream& out, const node& my_node){
 
 ostream& operator<<(ostream& out, const patch& my_patch){
     vector<node* > all_sample(my_patch.get_sample());
-    for (auto sample : all_sample){
+    for (node* sample : all_sample){
         out << *sample;
     }
     return out;
 }
 
 int main(int argc, const char * argv[]) {
-    vector<node* > all_sample;
-    int nb_element = 50;
-    for (int i(0);i< nb_element;i++){
-        node* a = new node(i);
-        all_sample.push_back(a);
-    }
-    patch my_patch(all_sample);
-    my_patch.coalesce_until(0.1);
-    my_patch.set_effective_size(.1);
-    my_patch.coalesce_all_node();
-    cout << my_patch;
+    patch my_patch1(10);
+    patch my_patch2(10);
+    my_patch1.coalesce_until(2);
+    my_patch2.coalesce_until(2);
+    my_patch1.merge_patch(&my_patch2, 2);
+    my_patch1.coalesce_all_sample();
+    cout << my_patch1;
     return 0;
 }

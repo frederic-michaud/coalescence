@@ -26,7 +26,7 @@ public:
     double get_time() const;
     int get_id() const;
     friend std::ostream& operator<< (std::ostream &out, const node &node);
-    
+    void shift_id(unsigned int shift);
 };
 
 

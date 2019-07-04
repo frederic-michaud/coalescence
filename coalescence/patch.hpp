@@ -13,18 +13,20 @@
 #include "node.hpp"
 class patch{
     private:
-        vector<node* > sample;
+        vector<node* > all_sample;
         unsigned int nb_sample;
         double effective_size;
         double current_time;
         unsigned int next_individual_id;
         void coalesce_two_node();
     public:
-        patch(vector<node* > sample);
+        patch(unsigned int nb_sample);
         vector<node* > get_sample() const;
-        void coalesce_all_node();
+        void coalesce_all_sample();
         bool coalesce_until(double time);
         inline void set_effective_size(double Effective_size){effective_size = Effective_size;}
+        void merge_patch(patch* external_patch, double merge_time);
+        void shift_id(unsigned int shift);
 };
 
 

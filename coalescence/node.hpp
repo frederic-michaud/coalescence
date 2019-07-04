@@ -17,11 +17,11 @@ class node;
 class node{
 private:
     double time;
+    double T_total_under;
     int id;
     vector<node* > childrens;
 public:
     node(int id);
-    node(int id, double time, vector<node* >);
     node(int id, double time,node*, node*);
     double get_time() const;
     int get_id() const;

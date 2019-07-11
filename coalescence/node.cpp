@@ -5,14 +5,16 @@
 //  Created by Frédéric Michaud on 28.06.19.
 //  Copyright © 2019 Frédéric Michaud. All rights reserved.
 //
-
+using namespace std;
 #include "node.hpp"
 #include<string>
-node::node(int id):time(0), id(id),total_time_under(0){
+#include<vector>
+
+node::node(int id):time(0), id(id),total_time_under(0),carry_mutation(false){
     
 };
 
-node::node(int id, double time, node* node1, node* node2):time(time),id(id)
+node::node(int id, double time, node* node1, node* node2):time(time),id(id),carry_mutation(false)
 {
     vector<node *> temp;
     temp.push_back(node1);
@@ -55,4 +57,35 @@ node* node::get_time_position(double time_given){
     else if(time_given < length_left_tree + length_right_branche ) output_node = get_time_position(time_given - (length_left_branche + length_left_tree));
     else output_node = childrens[0]->get_time_position(time_given - length_left_tree - length_right_branche);
     return output_node;
+}
+
+void node::mutate(){
+    carry_mutation = true;
+    for (node* children : childrens){
+        children->mutate();
+    }
+}
+
+vector<node* > node::get_leaves(){
+    vector<node* > all_leaves;
+    if(childrens.size() ==0){
+        all_leaves.push_back(this);
+    }
+    else{
+        for (node* children : childrens){
+            children->get_leaves(all_leaves);
+        }
+    }
+    return all_leaves;
+}
+
+void node::get_leaves(vector<node* > &all_leaves){
+    if(childrens.size() ==0){
+        all_leaves.push_back(this);
+    }
+    else{
+        for (node* children : childrens){
+            children->get_leaves(all_leaves);
+        }
+    }
 }

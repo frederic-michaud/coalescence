@@ -38,6 +38,10 @@ int main(int argc, const char * argv[]) {
     my_patch1.merge_patch(&my_patch2, 2);
     my_patch1.coalesce_all_sample();
     tree my_tree(my_patch1.get_last_node());
+    vector<node* > all_leave = my_patch1.get_last_node()->get_leaves();
+    for (node* leave : all_leave){
+        cout << leave->get_id() << endl;
+    }
     my_tree.add_mutation();
     cout << my_patch1;
     return 0;

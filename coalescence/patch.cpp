@@ -97,12 +97,12 @@ void patch::shift_id(unsigned int shift)
 
 vector<bool > patch::get_genotype(){
     vector<bool > genotype;
-    for (node* leave : this->get_leaves()){
+    for (node* leave : this->get_all_leave()){
         genotype.push_back(leave->is_mutated());
     }
     return genotype;
 }
 
-vector<node* > patch::get_leaves(){
+vector<node* > patch::get_all_leave(){
     return(all_leave);
 }

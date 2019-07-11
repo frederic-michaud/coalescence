@@ -14,6 +14,7 @@
 class patch{
     private:
         vector<node* > all_sample;
+        vector<node* > all_leave;
         unsigned int nb_sample;
         double effective_size;
         double current_time;

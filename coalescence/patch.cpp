@@ -17,6 +17,7 @@ patch::patch(unsigned int nb_sample): effective_size(1.), current_time(0),nb_sam
         node* a = new node(i);
         all_sample.push_back(a);
     }
+    all_leave = all_sample;
     next_individual_id = nb_sample;
 }
 
@@ -79,6 +80,9 @@ void patch::merge_patch(patch* external_patch, double merging_time){
     for (node* sample : (*external_patch).all_sample){
         all_sample.push_back(sample);
     }
+    for (node* leave : (*external_patch).all_leave){
+        all_leave.push_back(leave);
+    }
     nb_sample = all_sample.size();
     
 }
@@ -100,11 +104,5 @@ vector<bool > patch::get_genotype(){
 }
 
 vector<node* > patch::get_leaves(){
-    vector<node* > leaves;
-    for (node* sample : all_sample){
-        for (node* leave : sample->get_leaves()){
-            leaves.push_back(leave);
-        }
-    }
-    return(leaves);
+    return(all_leave);
 }

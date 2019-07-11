@@ -9,6 +9,7 @@ using namespace std;
 #include "node.hpp"
 #include<string>
 #include<vector>
+#include<iostream>
 
 node::node(int id):time(0), id(id),total_time_under(0),carry_mutation(false){
     
@@ -46,16 +47,17 @@ void node::shift_id(unsigned int shift){
 
 node* node::get_time_position(double time_given){
     node* output_node = NULL;
-    double length_left_branche = time;
-    if(childrens.size()>0) length_left_branche -= (*childrens[0]).time;
-    double length_left_tree(0);
-    if(childrens.size()>0) length_left_tree +=(*childrens[0]).total_time_under;
-    double length_right_branche = time;
-    if(childrens.size()>0) length_right_branche -= (*childrens[0]).time;
-    if(time_given < length_left_tree) output_node = childrens[0];
-    else if(time_given < length_left_tree )output_node = childrens[0]->get_time_position(time_given - length_left_branche);
-    else if(time_given < length_left_tree + length_right_branche ) output_node = get_time_position(time_given - (length_left_branche + length_left_tree));
-    else output_node = childrens[0]->get_time_position(time_given - length_left_tree - length_right_branche);
+    if(childrens.size() == 0){
+        cout << "something strange is going on" << endl;
+        return this;
+    }
+    double length_left_branche = time - (*childrens[0]).time;
+    double length_left_tree(length_left_branche+  (*childrens[0]).total_time_under);
+    double length_right_branche = time - (*childrens[1]).time;
+    if(time_given < length_left_branche) output_node = childrens[0];
+    else if(time_given < length_left_tree) output_node = childrens[0]->get_time_position(time_given - length_left_branche);
+    else if(time_given < length_left_tree + length_right_branche ) output_node = childrens[1];
+    else output_node = childrens[1]->get_time_position(time_given - (length_left_tree + length_right_branche));
     return output_node;
 }
 

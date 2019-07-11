@@ -90,3 +90,21 @@ void patch::shift_id(unsigned int shift)
     }
     next_individual_id += shift;
 }
+
+vector<bool > patch::get_genotype(){
+    vector<bool > genotype;
+    for (node* leave : this->get_leaves()){
+        genotype.push_back(leave->is_mutated());
+    }
+    return genotype;
+}
+
+vector<node* > patch::get_leaves(){
+    vector<node* > leaves;
+    for (node* sample : all_sample){
+        for (node* leave : sample->get_leaves()){
+            leaves.push_back(leave);
+        }
+    }
+    return(leaves);
+}

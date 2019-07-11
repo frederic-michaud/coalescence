@@ -22,6 +22,6 @@ void tree::add_mutation(){
     uniform_real_distribution<> dis(0., total_tree_length);
     double mutation_happening_at = dis(generator);
     node* where = upper_node->get_time_position(mutation_happening_at);
-    cout << (*where) << endl;
+    where->mutate();
     
 }

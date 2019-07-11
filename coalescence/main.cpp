@@ -42,7 +42,17 @@ int main(int argc, const char * argv[]) {
     for (node* leave : all_leave){
         cout << leave->get_id() << endl;
     }
+    vector<bool > genotypes(my_patch1.get_genotype());
+    cout << "before mutation"<< endl;
+    for (bool genotype : genotypes){
+        cout << genotype;
+    }
     my_tree.add_mutation();
-    cout << my_patch1;
+    genotypes = my_patch1.get_genotype();
+    cout << endl << "after mutation" << endl;
+    for (bool genotype : genotypes){
+        cout << genotype;
+    }
+    cout << endl << my_patch1;
     return 0;
 }

@@ -31,28 +31,23 @@ ostream& operator<<(ostream& out, const patch& my_patch){
 }
 
 int main(int argc, const char * argv[]) {
+    for (int i(0);i < 10000;i++){
     patch my_patch1(10);
     patch my_patch2(10);
-    my_patch1.coalesce_until(2);
-    my_patch2.coalesce_until(2);
-    my_patch1.merge_patch(&my_patch2, 2);
+    double merging_time(0.2);
+    my_patch1.coalesce_until(merging_time);
+    my_patch2.coalesce_until(merging_time);
+    my_patch1.merge_patch(&my_patch2, merging_time);
     my_patch1.coalesce_all_sample();
     tree my_tree(my_patch1.get_last_node());
     vector<node* > all_leave = my_patch1.get_last_node()->get_leaves();
-    for (node* leave : all_leave){
-        cout << leave->get_id() << endl;
-    }
     vector<bool > genotypes(my_patch1.get_genotype());
-    cout << "before mutation"<< endl;
-    for (bool genotype : genotypes){
-        cout << genotype;
-    }
     my_tree.add_mutation();
     genotypes = my_patch1.get_genotype();
-    cout << endl << "after mutation" << endl;
     for (bool genotype : genotypes){
-        cout << genotype;
+        cout << genotype + 1 << " ";
     }
-    cout << endl << my_patch1;
+    cout << endl;
+    }
     return 0;
 }

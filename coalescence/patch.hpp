@@ -6,13 +6,18 @@
 //  Copyright © 2019 Frédéric Michaud. All rights reserved.
 //
 
+
+
 #ifndef patch_hpp
 #define patch_hpp
-
+class simulation;
+class random_random_generator;
 #include <stdio.h>
 #include "node.hpp"
+
 class patch{
     private:
+        simulation* my_simulation;
         vector<node* > all_sample;
         vector<node* > all_leave;
         unsigned int nb_sample;

@@ -7,8 +7,8 @@
 //
 
 #include "patch.hpp"
-#include <random>
 #include "iostream"
+#include "simulation.hpp"
 using namespace std;
 
 patch::patch(unsigned int nb_sample): effective_size(1.), current_time(0),nb_sample(nb_sample)
@@ -26,31 +26,22 @@ vector<node* > patch::get_sample() const{
 }
 
 void patch::coalesce_two_node(){
-    unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
-    std::default_random_engine generator (seed);
-    uniform_int_distribution<int> distribution1(0,nb_sample -1);
-    int ind1_index(distribution1(generator));
+    int ind1_index = my_simulation->get_random_generator()->uniform(nb_sample -1);
     node* ind1(all_sample[ind1_index]);
     all_sample.erase(all_sample.begin() + ind1_index);
     nb_sample--;
-    uniform_int_distribution<int> distribution2(0,nb_sample -1);
-    int ind2_index(distribution2(generator));
+    int ind2_index(my_simulation->get_random_generator()->uniform(nb_sample -1));
     node* ind2(all_sample[ind2_index]);
     all_sample.erase(all_sample.begin() + ind2_index);
     node* new_sample = new node(next_individual_id,current_time, ind1,ind2);
     all_sample.push_back(new_sample);
     next_individual_id++;
-
-    
 }
 
 void patch::coalesce_all_sample(){
     while (nb_sample > 1)
     {
-        unsigned seed = chrono::system_clock::now().time_since_epoch().count();
-        default_random_engine generator (seed);
-        exponential_distribution<double> distrib_event((nb_sample*(nb_sample+1))/(2*effective_size));
-        double time_event = distrib_event(generator);
+        double time_event(my_simulation->get_random_generator()->exponential((nb_sample*(nb_sample+1))/(2*effective_size)));
         current_time = current_time + time_event;
         coalesce_two_node();
     }
@@ -59,10 +50,7 @@ void patch::coalesce_all_sample(){
 bool patch::coalesce_until(double time_limit){
     bool is_too_long = false;
     while (nb_sample > 1 &! is_too_long ){
-        unsigned seed = chrono::system_clock::now().time_since_epoch().count();
-        default_random_engine generator (seed);
-        exponential_distribution<double> distrib_event((nb_sample*(nb_sample+1))/(2*effective_size));
-        double time_event = distrib_event(generator);
+        double time_event(my_simulation->get_random_generator()->exponential((nb_sample*(nb_sample+1))/(2*effective_size)));
         double new_time(current_time + time_event);
         is_too_long = new_time > time_limit;
         if (!is_too_long){

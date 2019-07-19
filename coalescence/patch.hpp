@@ -26,7 +26,7 @@ class patch{
         unsigned int next_individual_id;
         void coalesce_two_node();
     public:
-        patch(unsigned int nb_sample);
+        patch(unsigned int nb_sample, simulation* my_simulation);
         vector<node* > get_sample() const;
         void coalesce_all_sample();
         bool coalesce_until(double time);

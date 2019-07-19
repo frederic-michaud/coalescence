@@ -22,16 +22,12 @@ ostream& operator<<(ostream& out, const node& my_node){
     return out;
 }
 
-ostream& operator<<(ostream& out, const patch& my_patch){
-    vector<node* > all_sample(my_patch.get_sample());
-    for (node* sample : all_sample){
-        out << *sample;
-    }
-    return out;
-}
+
 
 int main(int argc, const char * argv[]) {
-    for (int i(0);i < 10000;i++){
+    simulation my_simulation;
+    my_simulation.perform_simulation();
+    /*for (int i(0);i < 10000;i++){
     patch my_patch1(10);
     patch my_patch2(10);
     double merging_time(0.2);
@@ -48,6 +44,6 @@ int main(int argc, const char * argv[]) {
         cout << genotype + 1 << " ";
     }
     cout << endl;
-    }
+    }*/
     return 0;
 }

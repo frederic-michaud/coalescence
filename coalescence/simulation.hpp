@@ -19,12 +19,16 @@ class simulation{
 private:
     vector<event > all_events;
     vector<patch* > all_patches;
-    random_random_generator* my_random_generator;
+    random_generator* my_random_generator;
+    void perform_simulation_until(double time);
+    void perform_simulation_until_infinity();
 public:
     simulation();
     simulation(vector<event >);
-    random_random_generator* get_random_generator();
+    random_generator* get_random_generator();
     void update_parameters();
     void perform_simulation();
+
+    void add_patch(int nb_deme);
 };
 #endif /* simulation_hpp */

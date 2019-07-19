@@ -20,14 +20,14 @@ class random_generator{
 };
 
 
-class random_random_generator: random_generator{
+class random_random_generator: public random_generator{
 public:
     random_random_generator();
     double exponential(double);
     int uniform(int);
 };
 
-class not_random_generator:random_generator{
+class not_random_generator: public random_generator{
 public:
     not_random_generator();
     double exponential(double);

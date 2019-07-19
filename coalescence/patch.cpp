@@ -11,7 +11,9 @@
 #include "simulation.hpp"
 using namespace std;
 
-patch::patch(unsigned int nb_sample): effective_size(1.), current_time(0),nb_sample(nb_sample)
+
+
+patch::patch(unsigned int nb_sample, simulation* Simulation): effective_size(1.), current_time(0),nb_sample(nb_sample),my_simulation(Simulation)
 {
     for (int i(0);i< nb_sample;i++){
         node* a = new node(i);

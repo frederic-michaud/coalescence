@@ -21,6 +21,7 @@ protected:
     unsigned int nb_deme;
 public:
     parameters(int argc, const char * argv[]);
+    inline unsigned int get_nb_deme(){return nb_deme;}
 };
 
 #endif /* parameters_hpp */

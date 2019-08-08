@@ -18,7 +18,8 @@ using namespace std;
 
 
 int main(int argc, const char * argv[]) {
-    simulation my_simulation;
+    parameters* my_parameters = new parameters(argc, argv);
+    simulation my_simulation(my_parameters);
     my_simulation.perform_simulation();
     return 0;
 }

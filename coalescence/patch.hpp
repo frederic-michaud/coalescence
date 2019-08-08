@@ -19,14 +19,12 @@ class patch{
     private:
         simulation* my_simulation;
         vector<node* > all_sample;
-        vector<node* > all_leave;
         unsigned int nb_sample;
         double effective_size;
         double current_time;
-        unsigned int next_individual_id;
         void coalesce_two_node();
     public:
-        patch(unsigned int nb_sample, simulation* my_simulation);
+        patch(vector<node* > all_sample, simulation* my_simulation);
         vector<node* > get_sample() const;
         void coalesce_all_sample();
         bool coalesce_until(double time);

@@ -18,12 +18,16 @@ ostream& operator<<(ostream& out, const patch& my_patch){
 }
 
 simulation::simulation(){
-    add_patch(20);
     my_random_generator = new random_random_generator();
 }
 
-simulation::simulation(vector<event > events): all_events(events) {
-    add_patch(20);
+simulation::simulation(parameters* my_parameters){
+
+    vector<node* > leave = vector<node* >();
+    for(int i(0);i < my_parameters->get_nb_deme(); i++){
+        leave.push_back(get_new_node());
+    }
+    all_patches.push_back(new patch(leave, this));
     my_random_generator = new random_random_generator();
 }
 
@@ -51,6 +55,18 @@ void simulation::perform_simulation_until_infinity(){
     }
 }
 
-void simulation::add_patch(int nb_deme){
-    all_patches.push_back(new patch(nb_deme,this));
+void simulation::add_patch(vector<node* > all_deme){
+    all_patches.push_back(new patch(all_deme, this));
+}
+
+node* simulation::get_new_node(double current_time, node* ind1, node* ind2){
+    node* new_deme = new node(current_individual_id, current_time, ind1, ind2);
+    current_individual_id++;
+    return new_deme;
+}
+
+node* simulation::get_new_node(){
+    node* new_deme = new node(current_individual_id);
+    current_individual_id++;
+    return new_deme;
 }

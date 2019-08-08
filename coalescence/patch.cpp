@@ -13,14 +13,9 @@ using namespace std;
 
 
 
-patch::patch(unsigned int nb_sample, simulation* Simulation): effective_size(1.), current_time(0),nb_sample(nb_sample),my_simulation(Simulation)
+patch::patch(vector<node* > all_sample, simulation* Simulation): effective_size(1.), current_time(0),my_simulation(Simulation),all_sample(all_sample)
 {
-    for (int i(0);i< nb_sample;i++){
-        node* a = new node(i);
-        all_sample.push_back(a);
-    }
-    all_leave = all_sample;
-    next_individual_id = nb_sample;
+    nb_sample = all_sample.size();
 }
 
 vector<node* > patch::get_sample() const{
@@ -35,9 +30,8 @@ void patch::coalesce_two_node(){
     int ind2_index(my_simulation->get_random_generator()->uniform(nb_sample -1));
     node* ind2(all_sample[ind2_index]);
     all_sample.erase(all_sample.begin() + ind2_index);
-    node* new_sample = new node(next_individual_id,current_time, ind1,ind2);
+    node* new_sample = my_simulation->get_new_node(current_time, ind1,ind2);
     all_sample.push_back(new_sample);
-    next_individual_id++;
 }
 
 void patch::coalesce_all_sample(){
@@ -65,34 +59,19 @@ bool patch::coalesce_until(double time_limit){
 }
 
 void patch::merge_patch(patch* external_patch, double merging_time){
-    external_patch->shift_id(next_individual_id);
-    next_individual_id = (*external_patch).next_individual_id;
     for (node* sample : (*external_patch).all_sample){
         all_sample.push_back(sample);
-    }
-    for (node* leave : (*external_patch).all_leave){
-        all_leave.push_back(leave);
     }
     nb_sample = all_sample.size();
     
 }
 
-void patch::shift_id(unsigned int shift)
-{
-    for (node* sample : all_sample){
-        sample->shift_id(shift);
-    }
-    next_individual_id += shift;
-}
+
 
 vector<bool > patch::get_genotype(){
     vector<bool > genotype;
-    for (node* leave : this->get_all_leave()){
+    /*for (node* leave : this->get_all_leave()){
         genotype.push_back(leave->is_mutated());
-    }
+    }*/
     return genotype;
-}
-
-vector<node* > patch::get_all_leave(){
-    return(all_leave);
 }

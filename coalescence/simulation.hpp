@@ -13,7 +13,6 @@ using namespace std;
 #include <stdio.h>
 #include "event.hpp"
 #include <vector>
-
 #include "random_generator.hpp"
 class simulation{
 private:
@@ -25,7 +24,7 @@ private:
 public:
     simulation();
     simulation(vector<event >);
-    random_generator* get_random_generator();
+    inline random_generator* get_random_generator(){return my_random_generator;}
     void update_parameters();
     void perform_simulation();
 

@@ -51,10 +51,6 @@ void simulation::perform_simulation_until_infinity(){
     }
 }
 
-random_generator* simulation::get_random_generator(){
-    return my_random_generator;
-}
-
 void simulation::add_patch(int nb_deme){
     all_patches.push_back(new patch(nb_deme,this));
 }

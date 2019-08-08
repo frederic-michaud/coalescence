@@ -11,6 +11,14 @@ using namespace std;
 #include<vector>
 #include<iostream>
 
+ostream& operator<<(ostream& out, const node& my_node){
+    out << to_string(my_node.get_id());
+    if(my_node.childrens.size() == 2){
+        out << "(" << *my_node.childrens[0] << ":" <<  my_node.time - (*my_node.childrens[0]).time << "," << *my_node.childrens[1]<< ":" <<  my_node.time - (*my_node.childrens[1]).time << ")";
+    }
+    return out;
+}
+
 node::node(int id):time(0), id(id),total_time_under(0),carry_mutation(false){
     
 };

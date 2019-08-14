@@ -13,7 +13,7 @@ using namespace std;
 
 
 
-patch::patch(vector<node* > all_sample, simulation* Simulation): effective_size(1.), current_time(0),my_simulation(Simulation),all_sample(all_sample)
+patch::patch(vector<node* > all_sample, simulation* Simulation, unsigned int id): effective_size(1.), current_time(0),my_simulation(Simulation),all_sample(all_sample), id(id)
 {
     nb_sample = all_sample.size();
 }
@@ -58,20 +58,10 @@ bool patch::coalesce_until(double time_limit){
     return(is_too_long);
 }
 
-void patch::merge_patch(patch* external_patch, double merging_time){
+void patch::merge(patch* external_patch, double merging_time){
     for (node* sample : (*external_patch).all_sample){
         all_sample.push_back(sample);
     }
     nb_sample = all_sample.size();
-    
 }
 
-
-
-vector<bool > patch::get_genotype(){
-    vector<bool > genotype;
-    /*for (node* leave : this->get_all_leave()){
-        genotype.push_back(leave->is_mutated());
-    }*/
-    return genotype;
-}

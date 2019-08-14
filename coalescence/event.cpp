@@ -10,10 +10,16 @@
 #include "simulation.hpp"
 using namespace std;
 
-event::event(double Time):time(Time){
-    
+event::event(){
 }
 
-void event::update_parameters(simulation* my_simulation){
-    
+void event::update_simulation(simulation* my_simulation){
+}
+
+merging_event::merging_event(unsigned int patch1_id, unsigned int patch2_id, double time):
+patch1_id(patch1_id), patch2_id(patch2_id),time(time){
+}
+
+void merging_event::update_simulation(simulation* my_simulation){
+    my_simulation->merge_patch(patch1_id,patch2_id, time);
 }

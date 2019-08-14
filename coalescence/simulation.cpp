@@ -23,7 +23,7 @@ simulation::simulation(){
 
 simulation::simulation(parameters* my_parameters){
     //creating all final node and putting them in the leave vector
-    vector<node* > leave = vector<node* >();
+    leave = vector<node* >();
     for(int i(0);i < my_parameters->get_nb_individual(); i++){
         leave.push_back(get_new_node());
     }
@@ -35,39 +35,39 @@ simulation::simulation(parameters* my_parameters){
         vector<node* >::const_iterator first = leave.begin() + id_first_individual_of_patch;
         vector<node* >::const_iterator last = leave.begin() + id_last_individual_of_patch;
         vector<node* > all_node(first, last);
-        all_patches.push_back(new patch(all_node, this));
+        all_patches.push_back(new patch(all_node, this, patch_id));
     }
-    
+    all_active_patches = all_patches;
     my_random_generator = new random_random_generator();
 }
 
 void simulation::perform_simulation() {
     cout << "starting simulation" << endl;
     double time(0);
-    for (event my_event : all_events){
-        time = my_event.get_time();
+    all_events.push_back(new merging_event(0,1,0.5));
+    for (event* my_event : all_events){
+        time = my_event->get_time();
         perform_simulation_until(time);
-        my_event.update_parameters(this);
+        my_event->update_simulation(this);
     }
     perform_simulation_until_infinity();
-    cout << *all_patches[0] << endl;
+    tree my_tree(all_active_patches.front()->get_last_node());
+    my_tree.add_mutation();
+    print_genotype();
 }
 
 void simulation::perform_simulation_until(double time){
-    for (patch* my_patch : all_patches){
+    for (patch* my_patch : all_active_patches){
         my_patch->coalesce_until(time);
     }
 }
 
 void simulation::perform_simulation_until_infinity(){
-    for (patch* my_patch : all_patches){
+    for (patch* my_patch : all_active_patches){
         my_patch->coalesce_all_sample();
     }
 }
 
-void simulation::add_patch(vector<node* > all_deme){
-    all_patches.push_back(new patch(all_deme, this));
-}
 
 node* simulation::get_new_node(double current_time, node* ind1, node* ind2){
     node* new_deme = new node(current_individual_id, current_time, ind1, ind2);
@@ -79,4 +79,44 @@ node* simulation::get_new_node(){
     node* new_deme = new node(current_individual_id);
     current_individual_id++;
     return new_deme;
+}
+
+void simulation::merge_patch(unsigned int patch1_id, unsigned int patch2_id, double time)
+{
+    patch* patch1 = get_patch_per_id(patch1_id);
+    patch* patch2 = get_patch_per_id(patch2_id);
+    patch1->merge(patch2, time);
+    remove_from_activ_patch(patch2_id);
+}
+
+patch* simulation::get_patch_per_id(unsigned int patch_id){
+    patch* correct_patch =NULL;
+    for (patch* my_patch : all_patches){
+        if (my_patch->get_id() == patch_id){
+            correct_patch = my_patch;
+        }
+    }
+    return correct_patch;
+}
+
+void simulation::remove_from_activ_patch(unsigned int patch_id){
+    patch* patch_to_remove = get_patch_per_id(patch_id);
+    all_active_patches.remove(patch_to_remove);
+}
+
+
+vector<bool > simulation::get_genotype(){
+    vector<bool > genotype;
+    for (node* leave : leave){
+        genotype.push_back(leave->is_mutated());
+    }
+    return genotype;
+}
+
+void simulation::print_genotype(){
+    
+    for (node* leave : leave){
+        cout << leave->is_mutated();
+    }
+    cout << endl;
 }

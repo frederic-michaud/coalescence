@@ -23,17 +23,18 @@ class patch{
         double effective_size;
         double current_time;
         void coalesce_two_node();
+        unsigned int id;
     public:
-        patch(vector<node* > all_sample, simulation* my_simulation);
+        patch(vector<node* > all_sample, simulation* my_simulation, unsigned int id);
         vector<node* > get_sample() const;
         void coalesce_all_sample();
         bool coalesce_until(double time);
         inline void set_effective_size(double Effective_size){effective_size = Effective_size;}
-        void merge_patch(patch* external_patch, double merge_time);
+        void merge(patch* external_patch, double merge_time);
         void shift_id(unsigned int shift);
         vector<node* > get_all_leave();
-        vector<bool > get_genotype();
-    inline node* get_last_node(){return all_sample.back();}
+        inline node* get_last_node(){return all_sample.back();}
+        inline int get_id(){return id;}
 };
 
 

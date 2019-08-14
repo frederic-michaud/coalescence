@@ -36,15 +36,16 @@ simulation::simulation(parameters* my_parameters){
         vector<node* >::const_iterator last = leave.begin() + id_last_individual_of_patch;
         vector<node* > all_node(first, last);
         all_patches.push_back(new patch(all_node, this, patch_id));
+        id_first_individual_of_patch = id_last_individual_of_patch +1;
     }
     all_active_patches = all_patches;
+    all_events = my_parameters->get_all_events();
     my_random_generator = new random_random_generator();
 }
 
 void simulation::perform_simulation() {
     cout << "starting simulation" << endl;
     double time(0);
-    all_events.push_back(new merging_event(0,1,0.5));
     for (event* my_event : all_events){
         time = my_event->get_time();
         perform_simulation_until(time);

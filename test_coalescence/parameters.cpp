@@ -29,10 +29,9 @@ TEST_CASE( "We can parse the optional parameters -I") {
     //working case
     const char *params1[] = {"programName", "15","12","-I","2","5","7"};
     parameters_testable my_parameters(nb_param, params1);
-    vector<unsigned int > patch_sizes = my_parameters.get_patch_sizes();
     REQUIRE(my_parameters.get_nb_patch() == 2);
-    REQUIRE(patch_sizes[0] == 5);
-    REQUIRE(patch_sizes[1] == 7);
+    REQUIRE(my_parameters.get_patch_size(0) == 5);
+    REQUIRE(my_parameters.get_patch_size(1) == 7);
     //Failing case
     const char *params2[] = {"programName", "15","12","-I","2","7","7"};
     REQUIRE_THROWS_WITH(parameters(nb_param, params2), Contains( "The sum of all individual"));

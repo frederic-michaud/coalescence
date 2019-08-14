@@ -29,7 +29,7 @@ public:
     parameters(int argc, const char * argv[]);
     inline unsigned int get_nb_deme(){return nb_deme;}
     inline unsigned int get_nb_patch(){return nb_patch;}
-     inline vector<unsigned int> get_patch_sizes(){return patch_sizes;}
+    inline unsigned int get_patch_size(unsigned int patch_id){return patch_sizes[patch_id];}
 };
 
 #endif /* parameters_hpp */

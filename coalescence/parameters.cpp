@@ -43,7 +43,7 @@ void parameters::parse_optional_argument(){
 
 int parameters::parse_single_argument(int position_in_input){
     if(user_input[position_in_input] == "-I"){
-        if(user_input.size() < position_in_input + 1){
+        if(user_input.size() <= position_in_input + 1){
             throw "Invalid argument: -I should be followed by an integer giving the number of patch\n";
         }
         try {

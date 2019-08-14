@@ -8,13 +8,15 @@
 #include "parameters.hpp"
 
 
-parameters::parameters(int argc, const char * argv[]){
+parameters::parameters(int argc, const char * argv[]):nb_patch(1){
     user_input = vector<string >();
     for (int i = 1; i < argc; ++i) {
             user_input.push_back(argv[i]);
     }
-
     parse();
+    if(nb_patch == 1){
+        patch_sizes.push_back(nb_individual);
+    }
 }
 
 void parameters::parse(){
@@ -28,7 +30,7 @@ void parameters::parse_mandatory_argument(){
   }
   try {
       nb_loci = stoi(user_input[0]);
-      nb_deme = stoi(user_input[1]);
+      nb_individual = stoi(user_input[1]);
   } catch (const std::invalid_argument& ia) {
       throw "Invalid argument: the two first arguments should be integer\n";
   }
@@ -65,7 +67,7 @@ int parameters::parse_single_argument(int position_in_input){
                 throw "Invalid argument: Not able to convert one of the patch size \n";
                 }
         }
-       if(nb_individual_in_all_patches != nb_deme){
+       if(nb_individual_in_all_patches != nb_individual){
            throw "Invalid argument: The sum of all individual in all patches should be equal to the total number of individual \n";
        }
       position_in_input += 2 + nb_patch;

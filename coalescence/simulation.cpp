@@ -22,12 +22,22 @@ simulation::simulation(){
 }
 
 simulation::simulation(parameters* my_parameters){
-
+    //creating all final node and putting them in the leave vector
     vector<node* > leave = vector<node* >();
-    for(int i(0);i < my_parameters->get_nb_deme(); i++){
+    for(int i(0);i < my_parameters->get_nb_individual(); i++){
         leave.push_back(get_new_node());
     }
-    all_patches.push_back(new patch(leave, this));
+    //adding all the node in the patch where they belong
+    int id_first_individual_of_patch(0);
+    for(int patch_id(0); patch_id < my_parameters->get_nb_patch();patch_id++){
+        int patch_dimension = my_parameters->get_patch_size(patch_id);
+        int id_last_individual_of_patch(id_first_individual_of_patch + patch_dimension);
+        vector<node* >::const_iterator first = leave.begin() + id_first_individual_of_patch;
+        vector<node* >::const_iterator last = leave.begin() + id_last_individual_of_patch;
+        vector<node* > all_node(first, last);
+        all_patches.push_back(new patch(all_node, this));
+    }
+    
     my_random_generator = new random_random_generator();
 }
 

@@ -37,39 +37,46 @@ void parameters::parse_mandatory_argument(){
 }
 
 void parameters::parse_optional_argument(){
-      int counter = 2;
-      while(user_input.size() > counter){
-          counter = parse_single_argument(counter);          
-              }
+    vector<int > position_argument;
+    for(int counter(2);counter < user_input.size();counter++){
+        if (user_input[counter][0] == "-"[0]) position_argument.push_back(counter);
+    }
+    int nb_argument = position_argument.size();
+    position_argument.push_back(user_input.size());
+    for(int index_argument(0); index_argument < nb_argument;index_argument++){
+        auto first = user_input.begin() + position_argument[index_argument];
+        auto last =  user_input.begin() + position_argument[index_argument + 1];
+        vector<string > specific_argument(first, last);
+        parse_single_argument(specific_argument);
+    }
 }
 
-int parameters::parse_single_argument(int position_in_input){
-    int position_output(0);
-    if(user_input[position_in_input] == "-I"){
-        position_output = parse_patch_size(position_in_input);
+void parameters::parse_single_argument(vector<string >  argument){
+    if(argument[0] == "-I"){
+        parse_patch_size(argument);
     }
-    if(user_input[position_in_input] == "-ej"){
-        position_output = parse_merge_event(position_in_input);
+    if(argument[0]== "-ej"){
+        parse_merge_event(argument);
     }
-    return position_output;
+
 }
 //-I nb_patch n1 n2 n3 ...
-int parameters::parse_patch_size(int position_in_input){
-    if(user_input.size() <= position_in_input + 1){
+void parameters::parse_patch_size(vector<string >  argument){
+    if(argument.size() < 2){
         throw "Invalid argument: -I should be followed by an integer giving the number of patch\n";
     }
     try {
-        nb_patch = stoi(user_input[position_in_input + 1]);
+        nb_patch = stoi(argument[1]);
     } catch (const std::invalid_argument& ia) {
         throw "Invalid argument: -I should be followed by an integer giving the number of patch\n";
     }
-    if(user_input.size() < position_in_input + 2 + nb_patch){
+    if(argument.size() <  2 + nb_patch){
         throw "Invalid argument: Not enough parameters provided to -I \n";
     }
     int nb_individual_in_all_patches = 0;
     for(int id_patch(0);id_patch < nb_patch;id_patch++){
         try{
-            int nb_individual_in_patch(stoi(user_input[position_in_input + 2 + id_patch]));
+            int nb_individual_in_patch(stoi(argument[2 + id_patch]));
             patch_sizes.push_back(nb_individual_in_patch);
             nb_individual_in_all_patches +=nb_individual_in_patch;
         }
@@ -80,15 +87,14 @@ int parameters::parse_patch_size(int position_in_input){
     if(nb_individual_in_all_patches != nb_individual){
         throw "Invalid argument: The sum of all individual in all patches should be equal to the total number of individual \n";
     }
-    return position_in_input +2 + nb_patch;
+    
 }
 
 //-ej t id1 id2
-int parameters::parse_merge_event(int position_in_input){
-    double time = stof(user_input[position_in_input + 1]);
-    unsigned int patch1_id = stoi(user_input[position_in_input + 2]);
-    unsigned int patch2_id = stoi(user_input[position_in_input + 3]);
+void parameters::parse_merge_event(vector<string >  argument){
+    double time = stof(argument[1]);
+    unsigned int patch1_id = stoi(argument[2]);
+    unsigned int patch2_id = stoi(argument[3]);
     merging_event* my_event = new merging_event(patch1_id, patch2_id, time);
     all_events.push_back(my_event);
-    return position_in_input + 4;
 }

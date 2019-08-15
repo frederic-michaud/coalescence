@@ -19,9 +19,9 @@ protected:
     void parse();
     void parse_mandatory_argument();
     void parse_optional_argument();
-    int parse_single_argument(int position_in_input);
-    int parse_patch_size(int position_in_input);
-    int parse_merge_event(int position_in_input);
+    void parse_single_argument(vector<string >  argument);
+    void parse_patch_size(vector<string >  argument);
+    void parse_merge_event(vector<string >  argument);
     unsigned int nb_loci;
     unsigned int nb_individual;
     unsigned int nb_patch;

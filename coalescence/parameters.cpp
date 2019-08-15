@@ -49,7 +49,6 @@ int parameters::parse_single_argument(int position_in_input){
         position_output = parse_patch_size(position_in_input);
     }
     if(user_input[position_in_input] == "-ej"){
-        cout << "found one" << endl;
         position_output = parse_merge_event(position_in_input);
     }
     return position_output;

@@ -10,14 +10,14 @@
 #include "simulation.hpp"
 using namespace std;
 
-event::event(){
+event::event(double time):time(time){
 }
 
 void event::update_simulation(simulation* my_simulation){
 }
 
 merging_event::merging_event(unsigned int patch1_id, unsigned int patch2_id, double time):
-patch1_id(patch1_id), patch2_id(patch2_id),time(time){
+patch1_id(patch1_id), patch2_id(patch2_id),event(time){
 }
 
 void merging_event::update_simulation(simulation* my_simulation){

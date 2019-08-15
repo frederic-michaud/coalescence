@@ -11,11 +11,11 @@
 class simulation;
 #include <stdio.h>
 class event {
-private:
+protected:
         double time;
 public:
     inline double get_time(){return time;}
-    event();
+    event(double time);
     virtual void update_simulation(simulation*);
     
 };
@@ -24,7 +24,6 @@ class merging_event: public event {
 private:
     unsigned int patch1_id;
     unsigned int patch2_id;
-    double time;
 public:
     merging_event(unsigned int patch1_id, unsigned int patch2_id, double time);
     void update_simulation(simulation*);

@@ -36,7 +36,7 @@ simulation::simulation(parameters* my_parameters){
         vector<node* >::const_iterator last = leave.begin() + id_last_individual_of_patch;
         vector<node* > all_node(first, last);
         all_patches.push_back(new patch(all_node, this, patch_id));
-        id_first_individual_of_patch = id_last_individual_of_patch +1;
+        id_first_individual_of_patch = id_last_individual_of_patch;
     }
     all_active_patches = all_patches;
     all_events = my_parameters->get_all_events();

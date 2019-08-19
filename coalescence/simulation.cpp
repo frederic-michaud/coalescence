@@ -31,11 +31,12 @@ simulation::simulation(parameters* my_parameters){
     int id_first_individual_of_patch(0);
     for(int patch_id(0); patch_id < my_parameters->get_nb_patch();patch_id++){
         int patch_dimension = my_parameters->get_patch_size(patch_id);
+        double current_time =my_parameters->get_patch_initial_time(patch_id);
         int id_last_individual_of_patch(id_first_individual_of_patch + patch_dimension);
         vector<node* >::const_iterator first = leave.begin() + id_first_individual_of_patch;
         vector<node* >::const_iterator last = leave.begin() + id_last_individual_of_patch;
         vector<node* > all_node(first, last);
-        all_patches.push_back(new patch(all_node, this, patch_id));
+        all_patches.push_back(new patch(all_node, this, patch_id, current_time));
         id_first_individual_of_patch = id_last_individual_of_patch;
     }
     all_active_patches = all_patches;

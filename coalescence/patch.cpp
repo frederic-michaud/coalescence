@@ -13,7 +13,7 @@ using namespace std;
 
 
 
-patch::patch(vector<node* > all_sample, simulation* Simulation, unsigned int id): effective_size(1.), current_time(0),my_simulation(Simulation),all_sample(all_sample), id(id)
+patch::patch(vector<node* > all_sample, simulation* Simulation, unsigned int id, double time): effective_size(1.), current_time(time),my_simulation(Simulation),all_sample(all_sample), id(id)
 {
     nb_sample = all_sample.size();
 }

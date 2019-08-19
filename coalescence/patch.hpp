@@ -25,7 +25,7 @@ class patch{
         void coalesce_two_node();
         unsigned int id;
     public:
-        patch(vector<node* > all_sample, simulation* my_simulation, unsigned int id);
+        patch(vector<node* > all_sample, simulation* my_simulation, unsigned int id, double time = 0);
         vector<node* > get_sample() const;
         void coalesce_all_sample();
         bool coalesce_until(double time);

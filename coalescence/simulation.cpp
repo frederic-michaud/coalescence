@@ -45,7 +45,6 @@ simulation::simulation(parameters* my_parameters){
 }
 
 void simulation::perform_simulation() {
-    cout << "starting simulation" << endl;
     double time(0);
     for (event* my_event : all_events){
         time = my_event->get_time();

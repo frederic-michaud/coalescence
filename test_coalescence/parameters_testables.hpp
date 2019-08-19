@@ -14,7 +14,7 @@
 class parameters_testable: public parameters{
     public:
     using parameters::parameters;
-    inline unsigned int get_nb_loci(){return nb_loci;}
+    inline unsigned int get_nb_loci(){return nb_sequence;}
     inline unsigned int get_nb_deme(){return nb_individual;}
 };
 #endif /* parameters_testables_hpp */

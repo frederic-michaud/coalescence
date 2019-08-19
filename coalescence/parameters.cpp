@@ -32,7 +32,7 @@ void parameters::parse_mandatory_argument(){
       throw "At least two arguments should be provided";
   }
   try {
-      nb_loci = stoi(user_input[0]);
+      nb_sequence = stoi(user_input[0]);
       nb_individual = stoi(user_input[1]);
   } catch (const std::invalid_argument& ia) {
       throw "Invalid argument: the two first arguments should be integer\n";

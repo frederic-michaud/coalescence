@@ -24,7 +24,7 @@ protected:
     void parse_merge_event(vector<string >  argument);
     void parse_initial_time(vector<string >  argument);
     //argument to be saved
-    unsigned int nb_loci;
+    unsigned int nb_sequence;
     unsigned int nb_individual;
     unsigned int nb_patch;
     vector<unsigned int> patch_sizes;
@@ -39,6 +39,7 @@ public:
     inline unsigned int get_nb_patch(){return nb_patch;}
     inline unsigned int get_patch_size(unsigned int patch_id){return patch_sizes[patch_id];}
     inline double get_patch_initial_time(unsigned int patch_id){return patch_initial_times[patch_id];}
+    inline int get_nb_sequence(){return nb_sequence;}
     inline vector<event* > get_all_events(){return all_events;}
 };
 

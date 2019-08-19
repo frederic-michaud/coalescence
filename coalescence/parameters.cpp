@@ -7,8 +7,7 @@
 //
 #include "parameters.hpp"
 
-
-parameters::parameters(int argc, const char * argv[]):nb_patch(1){
+parameters::parameters(int argc, const char * argv[]):nb_patch(1),is_given_patch_initial_times(false){
     user_input = vector<string >();
     for (int i = 1; i < argc; ++i) {
             user_input.push_back(argv[i]);
@@ -17,6 +16,10 @@ parameters::parameters(int argc, const char * argv[]):nb_patch(1){
     if(nb_patch == 1){
         patch_sizes.push_back(nb_individual);
     }
+    if(!is_given_patch_initial_times){
+        patch_initial_times = vector<double >(nb_patch, 0.);
+    }
+    validate();
 }
 
 void parameters::parse(){
@@ -58,6 +61,9 @@ void parameters::parse_single_argument(vector<string >  argument){
     if(argument[0]== "-ej"){
         parse_merge_event(argument);
     }
+    if(argument[0]== "-it"){
+        parse_initial_time(argument);
+    }
 
 }
 //-I nb_patch n1 n2 n3 ...
@@ -97,4 +103,28 @@ void parameters::parse_merge_event(vector<string >  argument){
     unsigned int patch2_id = stoi(argument[3]);
     merging_event* my_event = new merging_event(patch1_id, patch2_id, time);
     all_events.push_back(my_event);
+}
+
+//-it t1 t2 t3 ( the various time, looking backward in time, at which the patch appear)
+void parameters::parse_initial_time(vector<string >  argument){
+    is_given_patch_initial_times = true;
+    for (int argument_index(1);argument_index < argument.size();argument_index++){
+        try {
+            double time = stod(argument[argument_index]);
+            patch_initial_times.push_back(time);
+        } catch (const std::invalid_argument& ia) {
+            throw "Invalid argument: -it should be followed by a set of float number \n";
+        }
+    }
+}
+
+
+void parameters::validate(){
+    int nb_individual_in_all_patches = accumulate(patch_sizes.begin(),patch_sizes.end(),0);
+    if(nb_individual_in_all_patches != nb_individual){
+        throw "Invalid argument: The sum of all individual in all patches should be equal to the total number of individual \n";
+    }
+    if(patch_initial_times.size() != nb_patch){
+        throw "Invalid argument: The number of time provided in -it should be the same as the number of patch \n";
+    }
 }

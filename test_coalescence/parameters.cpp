@@ -46,3 +46,18 @@ TEST_CASE( "We can parse the optional parameters -I") {
     const char *params7[] = {"programName", "15","12","-I","2","7","hey"};
     REQUIRE_THROWS_WITH(parameters(nb_param, params7), Contains( "Not able to convert one of the patch size"));
 }
+
+TEST_CASE( "We can parse the optional parameters -it") {
+    int nb_param = 10;
+    //working case
+    const char *params1[] = {"programName", "15","12","-I","2","5","7","-it","0.5","0.2"};
+    parameters_testable my_parameters(nb_param, params1);
+    REQUIRE(my_parameters.get_nb_patch() == 2);
+    REQUIRE(my_parameters.get_patch_initial_time(0) == 0.5);
+    REQUIRE(my_parameters.get_patch_initial_time(1) == 0.2);
+    //Failing case
+    nb_param = 9;
+    const char *params2[] = {"programName", "15","12","-I","2","5","7","-it","0.5"};
+    REQUIRE_THROWS_WITH(parameters(nb_param, params2), Contains( "The number of time provided in -it"));
+
+}

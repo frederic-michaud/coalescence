@@ -37,6 +37,9 @@ simulation::simulation(parameters* my_parameters){
         vector<node* >::const_iterator last = leave.begin() + id_last_individual_of_patch;
         vector<node* > all_node(first, last);
         all_patches.push_back(new patch(all_node, this, patch_id, current_time));
+        for (node* my_node : all_node){
+            my_node->set_time(current_time);
+        }
         id_first_individual_of_patch = id_last_individual_of_patch;
     }
     all_active_patches = all_patches;
@@ -53,6 +56,7 @@ void simulation::perform_simulation() {
     }
     perform_simulation_until_infinity();
     tree my_tree(all_active_patches.front()->get_last_node());
+    cout << *all_active_patches.front()->get_last_node() << endl;
     my_tree.add_mutation();
     print_genotype();
 }

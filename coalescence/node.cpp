@@ -40,18 +40,15 @@ double node::get_time() const{
 }
 
 
+void node::set_time(double new_time) {
+    time = new_time;
+}
 
 int node::get_id() const{
     return(id);
 }
 
 
-void node::shift_id(unsigned int shift){
-    id+=shift;
-    for (node* children : childrens){
-        children->shift_id(shift);
-    }
-}
 
 node* node::get_time_position(double time_given){
     node* output_node = NULL;

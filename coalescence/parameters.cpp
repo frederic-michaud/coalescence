@@ -32,8 +32,8 @@ void parameters::parse_mandatory_argument(){
       throw "At least two arguments should be provided";
   }
   try {
-      nb_sequence = stoi(user_input[0]);
-      nb_individual = stoi(user_input[1]);
+      nb_individual = stoi(user_input[0]);
+      nb_sequence = stoi(user_input[1]);
   } catch (const std::invalid_argument& ia) {
       throw "Invalid argument: the two first arguments should be integer\n";
   }
@@ -66,7 +66,7 @@ void parameters::parse_single_argument(vector<string >  argument){
     }
 
 }
-//-I nb_patch n1 n2 n3 ...
+//-I nb_patch n1 n2 n3 ... number of individual per patch
 void parameters::parse_patch_size(vector<string >  argument){
     if(argument.size() < 2){
         throw "Invalid argument: -I should be followed by an integer giving the number of patch\n";
@@ -96,12 +96,12 @@ void parameters::parse_patch_size(vector<string >  argument){
     
 }
 
-//-ej t id1 id2
+//-ej t id1 id2 ... merging time between patch move id1 to id2
 void parameters::parse_merge_event(vector<string >  argument){
     double time = stof(argument[1]);
-    unsigned int patch1_id = stoi(argument[2]);
-    unsigned int patch2_id = stoi(argument[3]);
-    merging_event* my_event = new merging_event(patch1_id, patch2_id, time);
+    unsigned int patch1_id = stoi(argument[3]) - 1; //user interface should label patch from 1 to n, while inner code has it from 0 to n-1
+    unsigned int patch2_id = stoi(argument[2]) - 1;
+    merging_event* my_event = new merging_event(patch2_id, patch1_id, time);
     all_events.push_back(my_event);
 }
 

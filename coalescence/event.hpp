@@ -14,7 +14,7 @@ class event {
 protected:
         double time;
 public:
-    inline double get_time(){return time;}
+    inline double get_time() const {return time;}
     event(double time);
     virtual void update_simulation(simulation*);
     

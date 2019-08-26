@@ -16,5 +16,6 @@ class parameters_testable: public parameters{
     using parameters::parameters;
     inline unsigned int get_nb_loci(){return nb_sequence;}
     inline unsigned int get_nb_deme(){return nb_individual;}
+    inline event* get_event(int id_event){return all_events[id_event];}
 };
 #endif /* parameters_testables_hpp */

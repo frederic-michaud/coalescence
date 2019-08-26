@@ -19,8 +19,11 @@ parameters::parameters(int argc, const char * argv[]):nb_patch(1),is_given_patch
     if(!is_given_patch_initial_times){
         patch_initial_times = vector<double >(nb_patch, 0.);
     }
+    order_event();
     validate();
 }
+
+
 
 void parameters::parse(){
     parse_mandatory_argument();
@@ -127,4 +130,13 @@ void parameters::validate(){
     if(patch_initial_times.size() != nb_patch){
         throw "Invalid argument: The number of time provided in -it should be the same as the number of patch \n";
     }
+}
+
+
+void parameters::order_event(){
+    sort(all_events.begin(), all_events.end(),
+         [](const event*  a, const event*  b)
+    {
+        return a->get_time() < b->get_time();
+    });
 }

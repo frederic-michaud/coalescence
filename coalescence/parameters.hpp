@@ -33,13 +33,14 @@ protected:
     vector<event* > all_events;
     //validate that all parameters are consistent. 
     void validate();
+    void order_event();
 public:
     parameters(int argc, const char * argv[]);
     inline unsigned int get_nb_individual(){return nb_individual;}
-    inline unsigned int get_nb_patch(){return nb_patch;}
-    inline unsigned int get_patch_size(unsigned int patch_id){return patch_sizes[patch_id];}
-    inline double get_patch_initial_time(unsigned int patch_id){return patch_initial_times[patch_id];}
-    inline int get_nb_sequence(){return nb_sequence;}
+    const inline unsigned int get_nb_patch(){return nb_patch;}
+    const inline unsigned int get_patch_size(unsigned int patch_id){return patch_sizes[patch_id];}
+    const inline double get_patch_initial_time(unsigned int patch_id){return patch_initial_times[patch_id];}
+    const inline int get_nb_sequence(){return nb_sequence;}
     inline vector<event* > get_all_events(){return all_events;}
 };
 

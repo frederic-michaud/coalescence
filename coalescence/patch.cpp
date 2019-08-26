@@ -23,11 +23,11 @@ vector<node* > patch::get_sample() const{
 }
 
 void patch::coalesce_two_node(){
-    int ind1_index = my_simulation->get_random_generator()->uniform(nb_sample -1);
+    int ind1_index = my_simulation->get_random_generator()->uniform_int(nb_sample - 1);
     node* ind1(all_sample[ind1_index]);
     all_sample.erase(all_sample.begin() + ind1_index);
     nb_sample--;
-    int ind2_index(my_simulation->get_random_generator()->uniform(nb_sample -1));
+    int ind2_index(my_simulation->get_random_generator()->uniform_int(nb_sample - 1));
     node* ind2(all_sample[ind2_index]);
     all_sample.erase(all_sample.begin() + ind2_index);
     node* new_sample = my_simulation->get_new_node(current_time, ind1,ind2);

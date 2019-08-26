@@ -45,6 +45,7 @@ simulation::simulation(parameters* my_parameters){
     all_active_patches = all_patches;
     all_events = my_parameters->get_all_events();
     my_random_generator = new random_random_generator();
+    //my_random_generator = new not_random_generator();
 }
 
 void simulation::perform_simulation() {
@@ -55,8 +56,8 @@ void simulation::perform_simulation() {
         my_event->update_simulation(this);
     }
     perform_simulation_until_infinity();
-    tree my_tree(all_active_patches.front()->get_last_node());
-    cout << *all_active_patches.front()->get_last_node() << endl;
+    tree my_tree(all_active_patches.front()->get_last_node(), this);
+    //cout << *all_active_patches.front()->get_last_node() << endl;
     my_tree.add_mutation();
     print_genotype();
 }

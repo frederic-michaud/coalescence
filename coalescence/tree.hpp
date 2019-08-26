@@ -12,13 +12,16 @@
 #include <stdio.h>
 #include "node.hpp"
 #include <random>
+#include "simulation.hpp"
+class simulation;
 using namespace std;
 class tree{
 private:
     node* upper_node;
     double total_tree_length;
+    simulation* my_simulation;
 public:
-    tree(node* my_node);
+    tree(node* my_node, simulation* my_simulation);
     void add_mutation();
 };
 

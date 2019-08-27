@@ -67,6 +67,9 @@ void parameters::parse_single_argument(vector<string >  argument){
     if(argument[0]== "-it"){
         parse_initial_time(argument);
     }
+    if(argument[0]== "-en"){
+        parse_change_size(argument);
+    }
 
 }
 //-I nb_patch n1 n2 n3 ... number of individual per patch
@@ -119,6 +122,27 @@ void parameters::parse_initial_time(vector<string >  argument){
             throw "Invalid argument: -it should be followed by a set of float number \n";
         }
     }
+}
+
+
+//-en t i x ... Set subpop i size a new size x at time t
+void parameters::parse_change_size(vector<string >  argument){
+    if(argument.size() != 4){
+        throw "Invalid argument: -en should be followed three number indicating the time, the patch index and the new size. \n";
+    }
+    double time;
+    int patch_id;
+    double new_size;
+    try{
+        time = stof(argument[1]);
+        patch_id = stoi(argument[2]) - 1; //user interface should label patch from 1 to n, while inner code has it from 0 to n-1
+        new_size = stof(argument[3]);
+    }
+    catch(const std::invalid_argument& ia) {
+        throw "Invalid argument: -en should be followed by the time, the patch index and the new size. \n";
+    }
+    change_pop_size_event* my_event = new change_pop_size_event(patch_id, new_size, time);
+    all_events.push_back(my_event);
 }
 
 

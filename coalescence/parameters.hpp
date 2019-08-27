@@ -23,6 +23,7 @@ protected:
     void parse_patch_size(vector<string >  argument);
     void parse_merge_event(vector<string >  argument);
     void parse_initial_time(vector<string >  argument);
+    void parse_change_size(vector<string >  argument);
     //argument to be saved
     unsigned int nb_sequence;
     unsigned int nb_individual;

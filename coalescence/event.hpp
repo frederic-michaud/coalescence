@@ -29,4 +29,13 @@ public:
     void update_simulation(simulation*);
 };
 
+class change_pop_size_event: public event {
+private:
+    unsigned int patch_id;
+    double new_size;
+public:
+    change_pop_size_event(unsigned int patch_id, double new_size, double time);
+    void update_simulation(simulation*);
+};
+
 #endif /* event_hpp */

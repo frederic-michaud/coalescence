@@ -7,10 +7,14 @@
 //
 
 #include <stdio.h>
+
 #include <iostream>
 #include "catch.hpp"
 #include "simulation.hpp"
 #include "parameters_testables.hpp"
+#include "simulation_testables.hpp"
+
+
 using Catch::Matchers::Contains;
 TEST_CASE( "We can parse mandatory parameters") {
     int nb_param = 3;
@@ -76,4 +80,41 @@ TEST_CASE( "The events are well ordered") {
     parameters_testable my_parameters2(nb_param, params2);
     REQUIRE(my_parameters.get_event(0)->get_time() < my_parameters.get_event(1)->get_time());
     
+}
+
+// -en allows to change the size of the population during the simulation
+//-en t i x ... Set subpop i size a new size x at time t
+TEST_CASE( "We can parse the optional parameters -en") {
+    int nb_param = 7;
+    //working case
+    double epsilon = 0.0000001;
+    double eff_size = 0.25;
+    int nb_individual = 10;
+    double time_first_event = 2*eff_size/(nb_individual*(1+nb_individual));
+
+    char nb_individual_string[100];
+    snprintf(nb_individual_string, 100, "%d", nb_individual);
+    char eff_size_string[100];
+    snprintf(eff_size_string, 100, "%f", eff_size);
+    const char *params1[] = {"programName",nb_individual_string,"15","-en","0.5","1",eff_size_string};
+    parameters_testable my_parameters(nb_param, params1);
+    REQUIRE(my_parameters.get_event(0)->get_time() < 0.6);
+    REQUIRE(my_parameters.get_event(0)->get_time() > 0.45);
+    simulation_testable my_simulation(&my_parameters);
+    my_parameters.get_event(0)->update_simulation(&my_simulation);
+    int nb_indi = my_simulation.get_patch_per_id(0)->get_sample().size();
+    REQUIRE(nb_indi == 10);
+    my_simulation.perform_simulation_until(time_first_event + epsilon);
+    nb_indi = my_simulation.get_patch_per_id(0)->get_sample().size();
+    REQUIRE(nb_indi == 9);
+    
+    //The number of coalescent event decrease if I don't decrease the population size.
+    const char *params2[] = {"programName",nb_individual_string,"15"};
+    my_parameters = parameters_testable(3, params2);
+    my_simulation = simulation_testable(&my_parameters);
+    nb_indi = my_simulation.get_patch_per_id(0)->get_sample().size();
+    REQUIRE(nb_indi == 10);
+    my_simulation.perform_simulation_until(time_first_event + epsilon);
+    nb_indi = my_simulation.get_patch_per_id(0)->get_sample().size();
+    REQUIRE(nb_indi == 10);
 }

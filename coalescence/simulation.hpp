@@ -21,7 +21,8 @@ using namespace std;
 class node;
 class simulation{
     friend class merging_event;
-private:
+    friend class change_pop_size_event;
+protected:
     vector<node* > leave;
     parameters* my_parameters();
     vector<event* > all_events;

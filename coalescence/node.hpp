@@ -8,11 +8,11 @@
 
 #ifndef node_hpp
 #define node_hpp
-using namespace std;
+
 #include <stdio.h>
 #include <vector>
 #include <string>     // std::string, std::to_string
-
+using namespace std;
 class node;
 class node{
 private:

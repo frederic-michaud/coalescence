@@ -5,7 +5,7 @@
 //  Created by Frédéric Michaud on 28.06.19.
 //  Copyright © 2019 Frédéric Michaud. All rights reserved.
 //
-using namespace std;
+
 
 #ifndef simulation_hpp
 #define simulation_hpp
@@ -18,6 +18,7 @@ using namespace std;
 #include <list>
 #include "random_generator.hpp"
 #include "parameters.hpp"
+using namespace std;
 class node;
 class simulation{
     friend class merging_event;

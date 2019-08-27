@@ -5,7 +5,7 @@
 //  Created by Frédéric Michaud on 08.08.19.
 //  Copyright © 2019 Frédéric Michaud. All rights reserved.
 //
-using namespace std;
+
 #ifndef parameters_hpp
 #define parameters_hpp
 #include <iostream>
@@ -13,6 +13,7 @@ using namespace std;
 #include <stdio.h>
 #include "event.hpp"
 #include <numeric>
+using namespace std;
 class parameters{
 protected:
     vector <string> user_input;

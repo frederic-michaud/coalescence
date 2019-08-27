@@ -5,12 +5,12 @@
 //  Created by Frédéric Michaud on 28.06.19.
 //  Copyright © 2019 Frédéric Michaud. All rights reserved.
 //
-using namespace std;
+
 #include "node.hpp"
 #include<string>
 #include<vector>
 #include<iostream>
-
+using namespace std;
 ostream& operator<<(ostream& out, const node& my_node){
     out << to_string(my_node.get_id());
     if(my_node.childrens.size() == 2){

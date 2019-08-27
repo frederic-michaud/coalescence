@@ -12,6 +12,7 @@
 #include <stdio.h>
 #include <random>
 #endif /* random_generator_hpp */
+using namespace std;
 class random_generator{
     public:
         random_generator();

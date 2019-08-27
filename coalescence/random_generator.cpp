@@ -5,9 +5,9 @@
 //  Created by Frédéric Michaud on 18.07.19.
 //  Copyright © 2019 Frédéric Michaud. All rights reserved.
 //
-using namespace std;
-#include "random_generator.hpp"
 
+#include "random_generator.hpp"
+using namespace std;
 not_random_generator::not_random_generator(){
     
 }

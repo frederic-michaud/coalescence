@@ -77,7 +77,7 @@ node* node::get_time_position_with_time(double time_given, double &time_of_mutat
     double length_right_branche = time - (*childrens[1]).time;
     if(time_given < length_left_branche){
         output_node = childrens[0];
-        time_of_mutation = length_left_tree-time_given;
+        time_of_mutation = length_left_tree - time_given;
     }
     else if(time_given < length_left_tree)output_node = childrens[0]->get_time_position_with_time(time_given - length_left_branche, time_of_mutation);
     else if(time_given < length_left_tree + length_right_branche){

@@ -37,7 +37,7 @@ void patch::coalesce_two_node(){
 void patch::coalesce_all_sample(){
     while (nb_sample > 1)
     {
-        double time_event(my_simulation->get_random_generator()->exponential((nb_sample*(nb_sample+1))/(2*effective_size)));
+        double time_event(my_simulation->get_random_generator()->exponential((nb_sample*(nb_sample-1))/(2*effective_size)));
         current_time = current_time + time_event;
         coalesce_two_node();
     }
@@ -46,7 +46,7 @@ void patch::coalesce_all_sample(){
 bool patch::coalesce_until(double time_limit){
     bool is_too_long = false;
     while (!is_too_long && nb_sample > 1 ){
-        double time_event(my_simulation->get_random_generator()->exponential((nb_sample*(nb_sample+1))/(2*effective_size)));
+        double time_event(my_simulation->get_random_generator()->exponential((nb_sample*(nb_sample-1))/(2*effective_size)));
         double new_time(current_time + time_event);
         is_too_long = new_time > time_limit;
         if (!is_too_long){

@@ -53,7 +53,7 @@ int node::get_id() const{
 node* node::get_time_position(double time_given){
     node* output_node = NULL;
     if(childrens.size() == 0){
-        cout << "something strange is going on" << endl;
+        cerr << "something strange is going on" << endl;
         return this;
     }
     double length_left_branche = time - (*childrens[0]).time;
@@ -63,6 +63,28 @@ node* node::get_time_position(double time_given){
     else if(time_given < length_left_tree) output_node = childrens[0]->get_time_position(time_given - length_left_branche);
     else if(time_given < length_left_tree + length_right_branche ) output_node = childrens[1];
     else output_node = childrens[1]->get_time_position(time_given - (length_left_tree + length_right_branche));
+    return output_node;
+}
+
+node* node::get_time_position_with_time(double time_given, double &time_of_mutation){
+    node* output_node = NULL;
+    if(childrens.size() == 0){
+        cerr << "something strange is going on" << endl;
+        return this;
+    }
+    double length_left_branche = time - (*childrens[0]).time;
+    double length_left_tree(length_left_branche+  (*childrens[0]).total_time_under);
+    double length_right_branche = time - (*childrens[1]).time;
+    if(time_given < length_left_branche){
+        output_node = childrens[0];
+        time_of_mutation = length_left_tree-time_given;
+    }
+    else if(time_given < length_left_tree)output_node = childrens[0]->get_time_position_with_time(time_given - length_left_branche, time_of_mutation);
+    else if(time_given < length_left_tree + length_right_branche){
+            output_node = childrens[1];
+            time_of_mutation = length_left_tree + length_right_branche - time_given;
+        }
+    else output_node = childrens[1]->get_time_position_with_time(time_given - (length_left_tree + length_right_branche),time_of_mutation);
     return output_node;
 }
 

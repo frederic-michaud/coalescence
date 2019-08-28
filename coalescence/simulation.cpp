@@ -122,7 +122,7 @@ vector<bool > simulation::get_genotype(){
 void simulation::print_genotype(){
     
     for (node* leave : leave){
-        cout << leave->is_mutated();
+        cout << leave->is_mutated() + 1 << " ";
     }
     cout << endl;
 }

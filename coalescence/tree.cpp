@@ -18,6 +18,8 @@ tree::tree(node* my_node,simulation* my_simulation):upper_node(my_node),my_simul
 
 void tree::add_mutation(){
     double mutation_happening_at = my_simulation->get_random_generator()->uniform(total_tree_length);
-    node* where = upper_node->get_time_position(mutation_happening_at);
+    double when(0);
+    node* where = upper_node->get_time_position_with_time(mutation_happening_at, when);
+  //  cout << when << " ";
     where->mutate();
 }

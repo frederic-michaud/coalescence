@@ -11,9 +11,9 @@
 
 #include <stdio.h>
 #include <vector>
-#include <string>     // std::string, std::to_string
+#include <string>
 using namespace std;
-class node;
+
 class node{
 private:
     double time;
@@ -29,10 +29,12 @@ public:
     void set_time(double new_time);
     inline double get_total_time_under(){return total_time_under;}
     inline bool is_mutated(){return carry_mutation;}
+    inline double get_time(){return time;}
     void mutate();
     int get_id() const;
     friend std::ostream& operator<< (std::ostream &out, const node &node);
     node* get_time_position(double time);
+    node* get_time_position_with_time(double time, double &time_of_mutation);
     vector<node* > get_leaves();
 
 };
